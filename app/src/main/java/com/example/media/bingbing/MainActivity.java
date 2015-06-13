@@ -29,6 +29,19 @@ public class MainActivity extends ActionBarActivity {
 
     CountDownTimer timer = null; // 타이머 변수
 
+    public void scoreChange(boolean updown){
+
+        if(updown){
+            nScore += 1;
+        }
+        else{
+            if(nScore>0){
+                nScore -= 1;
+            }
+        }
+
+    }
+
     public void timerInit(){ // 타이머 불러오기
 
         if (timer != null) { // 타이머를 새로 불러왔을 때 초기화 하는 문장
@@ -176,15 +189,14 @@ public class MainActivity extends ActionBarActivity {
 
                 int randomNum = rand.nextInt(2);
                 if (nAnswerFront == 1){
-                    nScore += 1;
+                    scoreChange(true);
                     tvResult.setText(String.valueOf(nScore));
                     pushImage();
                 }
                 else {
-                    if(timer != null){
-                        timer.onFinish();
-                        btStart.setVisibility(View.VISIBLE);
-                    }
+                    scoreChange(false);
+                    tvResult.setText(String.valueOf(nScore));
+                    pushImage();
                 }
             }
             else {
@@ -203,18 +215,14 @@ public class MainActivity extends ActionBarActivity {
             if(isRunning){
                 int randomNum = rand.nextInt(2);
                 if (nAnswerFront == 0){
-                    nScore += 1;
+                    scoreChange(true);
                     tvResult.setText(String.valueOf(nScore));
                     pushImage();
                 }
                 else {
-
-                    if(timer != null){
-                        timer.onFinish();
-                        btStart.setVisibility(View.VISIBLE);
-
-                    }
-
+                    scoreChange(false);
+                    tvResult.setText(String.valueOf(nScore));
+                    pushImage();
                 }
             }
             else {

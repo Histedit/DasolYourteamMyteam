@@ -79,20 +79,10 @@ public class MainActivity extends ActionBarActivity {
 
     public void pushImage(){ // 이미지 밀어주기
 
-        iv[0].setImageDrawable(iv[1].getDrawable());
-        nAnswer[0] = nAnswer[1];
-        iv[1].setImageDrawable(iv[2].getDrawable());
-        nAnswer[1] = nAnswer[2];
-        iv[2].setImageDrawable(iv[3].getDrawable());
-        nAnswer[2] = nAnswer[3];
-        iv[3].setImageDrawable(iv[4].getDrawable());
-        nAnswer[3] = nAnswer[4];
-        iv[4].setImageDrawable(iv[5].getDrawable());
-        nAnswer[4] = nAnswer[5];
-        iv[5].setImageDrawable(iv[6].getDrawable());
-        nAnswer[5] = nAnswer[6];
-        iv[6].setImageDrawable(iv[7].getDrawable());
-        nAnswer[6] = nAnswer[7];
+        for(int i = 0; i<7; i++){
+            iv[i].setImageDrawable(iv[i+1].getDrawable());
+            nAnswer[i] = nAnswer[i+1];
+        }
         int temp = rand.nextInt(2);
         nAnswer[7] = temp;
         set(iv[7],temp);

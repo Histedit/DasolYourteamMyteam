@@ -1,5 +1,6 @@
 package com.example.media.bingbing;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -140,7 +141,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
        Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/fun.ttf");
 
         White = getResources().getColor(R.color.color_white);

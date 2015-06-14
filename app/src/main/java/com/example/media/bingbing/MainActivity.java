@@ -20,14 +20,15 @@ public class MainActivity extends ActionBarActivity {
     ImageView btLeft;
     ImageView btRight;
     ImageView btStart;
-    TextView tvResult;
+    TextView tvResult, tvCombo;
     TextView tvTimer;
     ImageView[] iv = new ImageView[8];
     int nScore; // 점수
+    int comboStack = 0;
     int nAnswer[] = new int[8];
     boolean isRunning = false;
 
-    int White, Yellow, Red;
+    int White, Yellow, Red, Black;
 
     Typeface custom_font;
 
@@ -36,14 +37,32 @@ public class MainActivity extends ActionBarActivity {
     CountDownTimer timer = null; // 타이머 변수
 
     public void scoreChange(boolean updown){
+        if(comboStack == 20){
+            tvCombo.setText("combo x2!");
+        }
+
+        if(comboStack == 50){
+            tvCombo.setText("combo x3!");
+        }
 
         if(updown){
-            nScore += 1;
+            if(comboStack < 20){
+                nScore += 1;
+            }
+            else if(comboStack < 50){
+                nScore += 2;
+            }
+            else{
+                nScore += 3;
+            }
+
+            comboStack += 1;
             tvResult.setTextColor(Yellow);
         }
         else{
             if(nScore>0){
                 nScore -= 1;
+                comboStack = 0;
                 tvResult.setTextColor(Red);
             }
         }
@@ -114,11 +133,12 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        custom_font = Typeface.createFromAsset(getAssets(),  "fonts/fun.ttf");
+        custom_font = Typeface.createFromAsset(getAssets(), "fonts/fun.ttf");
 
         White = getResources().getColor(R.color.color_white);
         Yellow = getResources().getColor(R.color.color_yellow);
         Red = getResources().getColor(R.color.color_red);
+        Black = getResources().getColor(R.color.color_black);
 
         iv[0] = (ImageView)findViewById(R.id.ivFront);
         iv[1] = (ImageView)findViewById(R.id.ivSecond);
@@ -128,6 +148,7 @@ public class MainActivity extends ActionBarActivity {
         iv[5] = (ImageView)findViewById(R.id.ivSixth);
         iv[6] = (ImageView)findViewById(R.id.ivSeventh);
         iv[7] = (ImageView)findViewById(R.id.ivLast);
+        tvCombo = (TextView)findViewById(R.id.textView3);
         btStart = (ImageView)findViewById(R.id.ivStart);
         btStart.setOnClickListener(new onStart());
         btRight = (ImageView)findViewById(R.id.ivRight);
@@ -144,6 +165,10 @@ public class MainActivity extends ActionBarActivity {
         tvTimer.setTypeface(custom_font);
         tvTimer.setTextSize(27);
         tvTimer.setTextColor(White);
+        tvCombo.setText("");
+        tvCombo.setTypeface(custom_font);
+        tvCombo.setTextSize(20);
+        tvCombo.setTextColor(Black);
     }
 
     public class onStart implements OnClickListener { // 새게임시작
@@ -175,7 +200,9 @@ public class MainActivity extends ActionBarActivity {
                     tvResult.setText(String.valueOf(nScore));
                     pushImage();
                 }
+                
             }
+            
             else {
 
                 Toast toast = Toast.makeText(getApplicationContext(), "Press Go!", Toast.LENGTH_SHORT);
@@ -192,18 +219,22 @@ public class MainActivity extends ActionBarActivity {
             if(isRunning){
 
                 if (nAnswer[0] == 0){
+                    tvCombo.setText("");
                     scoreChange(true);
                     tvResult.setText(String.valueOf(nScore));
                     v.playSoundEffect(SoundEffectConstants.CLICK);
                     pushImage();
                 }
                 else {
+                    tvCombo.setText("");
                     scoreChange(false);
                     tvResult.setText(String.valueOf(nScore));
                     v.playSoundEffect(SoundEffectConstants.CLICK);
                     pushImage();
                 }
+                
             }
+            
             else {
 
                 Toast toast = Toast.makeText(getApplicationContext(), "Press Go!", Toast.LENGTH_SHORT);

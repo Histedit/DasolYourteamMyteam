@@ -4,4 +4,5 @@
     <color name="color_yellow">#FAEA67</color>
     <color name="color_red">#ff2121</color>
     <color name="trans">#00000000</color>
+    <color name="color_black">#000000</color>
 </resources>

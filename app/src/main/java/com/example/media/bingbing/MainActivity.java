@@ -91,6 +91,8 @@ public class MainActivity extends ActionBarActivity {
                 tvTimer.setText("OVER");
                 timer = null;
                 btStart.setVisibility(View.VISIBLE);
+                btLeft.setVisibility(View.INVISIBLE);
+                btRight.setVisibility(View.INVISIBLE);
 
             } // 끝났을때의 동작
         };
@@ -155,6 +157,10 @@ public class MainActivity extends ActionBarActivity {
         btRight.setOnClickListener(new onRight());
         btLeft = (ImageView)findViewById(R.id.ivLeft);
         btLeft.setOnClickListener(new onLeft());
+
+        btLeft.setVisibility(View.INVISIBLE);
+        btRight.setVisibility(View.INVISIBLE);
+
         tvResult = (TextView)findViewById(R.id.textView);
         tvTimer = (TextView)findViewById(R.id.textView2);
         tvResult.setText("0");
@@ -173,7 +179,8 @@ public class MainActivity extends ActionBarActivity {
 
     public class onStart implements OnClickListener { // 새게임시작
         public void onClick(View v) {
-
+            btLeft.setVisibility(View.VISIBLE);
+            btRight.setVisibility(View.VISIBLE);
             btStart.setVisibility(View.INVISIBLE);
             isRunning = true;
             shuffle();
@@ -191,12 +198,14 @@ public class MainActivity extends ActionBarActivity {
             if(isRunning){ // 게임중인지 게임중이 아닌지 검사
 
                  if (nAnswer[0] == 1){
-                    scoreChange(true);
+                     tvCombo.setText("");
+                     scoreChange(true);
                     tvResult.setText(String.valueOf(nScore));
                     pushImage();
                 }
                 else {
-                    scoreChange(false);
+                     tvCombo.setText("");
+                     scoreChange(false);
                     tvResult.setText(String.valueOf(nScore));
                     pushImage();
                 }

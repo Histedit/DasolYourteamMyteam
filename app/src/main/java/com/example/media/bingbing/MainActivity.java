@@ -101,30 +101,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void shuffle(){
-        int temp = rand.nextInt(2);
-        set(iv[0],temp);
-        nAnswer[0] = temp;
-        temp = rand.nextInt(2);
-        set(iv[1],temp);
-        nAnswer[1] = temp;
-        temp = rand.nextInt(2);
-        set(iv[2],temp);
-        nAnswer[2] = temp;
-        temp = rand.nextInt(2);
-        set(iv[3],temp);
-        nAnswer[3] = temp;
-        temp = rand.nextInt(2);
-        set(iv[4],temp);
-        nAnswer[4] = temp;
-        temp = rand.nextInt(2);
-        set(iv[5],temp);
-        nAnswer[5] = temp;
-        temp = rand.nextInt(2);
-        set(iv[6],temp);
-        nAnswer[6] = temp;
-        temp = rand.nextInt(2);
-        set(iv[7],temp);
-        nAnswer[7] = temp;
+        for(int i = 0; i < 8; i++){
+            int temp = rand.nextInt(2);
+            set(iv[i],temp);
+            nAnswer[i] = temp;
+        }
     }
 
     // 앱이 처음 시작할 때 실행되는 부분
@@ -184,8 +165,7 @@ public class MainActivity extends ActionBarActivity {
 
             if(isRunning){ // 게임중인지 게임중이 아닌지 검사
 
-                int randomNum = rand.nextInt(2);
-                if (nAnswer[0] == 1){
+                 if (nAnswer[0] == 1){
                     scoreChange(true);
                     tvResult.setText(String.valueOf(nScore));
                     pushImage();
@@ -210,7 +190,7 @@ public class MainActivity extends ActionBarActivity {
         public void onClick(View v) {
 
             if(isRunning){
-                int randomNum = rand.nextInt(2);
+
                 if (nAnswer[0] == 0){
                     scoreChange(true);
                     tvResult.setText(String.valueOf(nScore));

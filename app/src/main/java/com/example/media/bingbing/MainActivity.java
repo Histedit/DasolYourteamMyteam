@@ -25,6 +25,8 @@ public class MainActivity extends ActionBarActivity {
     int nAnswerLast, nAnswerFront, nAnswerSecond, nAnswerThird, nAnswerFourth, nAnswerFifth, nAnswerSixth, nAnswerSeventh; // 답 번호
     boolean isRunning = false;
 
+    int White, Yellow, Red;
+
     Random rand = new Random();
 
     CountDownTimer timer = null; // 타이머 변수
@@ -33,10 +35,12 @@ public class MainActivity extends ActionBarActivity {
 
         if(updown){
             nScore += 1;
+            tvResult.setTextColor(Yellow);
         }
         else{
             if(nScore>0){
                 nScore -= 1;
+                tvResult.setTextColor(Red);
             }
         }
 
@@ -139,8 +143,9 @@ public class MainActivity extends ActionBarActivity {
 
        Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/fun.ttf");
 
-        int White = getResources().getColor(R.color.color_white);
-        int Yellow = getResources().getColor(R.color.color_yellow);
+        White = getResources().getColor(R.color.color_white);
+        Yellow = getResources().getColor(R.color.color_yellow);
+        Red = getResources().getColor(R.color.color_red);
 
         ivFront = (ImageView)findViewById(R.id.ivFront);
         ivSecond = (ImageView)findViewById(R.id.ivSecond);

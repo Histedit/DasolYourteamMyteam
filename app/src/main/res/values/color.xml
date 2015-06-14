@@ -2,5 +2,6 @@
 <resources>
     <color name="color_white">#FFFFFF</color>
     <color name="color_yellow">#FAEA67</color>
+    <color name="color_red">#ff2121</color>
     <color name="trans">#00000000</color>
 </resources>

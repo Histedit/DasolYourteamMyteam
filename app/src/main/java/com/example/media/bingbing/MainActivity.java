@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -21,12 +22,14 @@ public class MainActivity extends ActionBarActivity {
     ImageView btStart;
     TextView tvResult;
     TextView tvTimer;
-    ImageView ivFront, ivSecond, ivThird, ivFourth, ivFifth, ivSixth, ivSeventh, ivLast;
+    ImageView[] iv = new ImageView[8];
     int nScore; // 점수
-    int nAnswerLast, nAnswerFront, nAnswerSecond, nAnswerThird, nAnswerFourth, nAnswerFifth, nAnswerSixth, nAnswerSeventh; // 답 번호
+    int nAnswer[] = new int[8];
     boolean isRunning = false;
 
     int White, Yellow, Red;
+
+    Typeface custom_font;
 
     Random rand = new Random();
 
@@ -76,23 +79,23 @@ public class MainActivity extends ActionBarActivity {
 
     public void pushImage(){ // 이미지 밀어주기
 
-        ivFront.setImageDrawable(ivSecond.getDrawable());
-        nAnswerFront = nAnswerSecond;
-        ivSecond.setImageDrawable(ivThird.getDrawable());
-        nAnswerSecond = nAnswerThird;
-        ivThird.setImageDrawable(ivFourth.getDrawable());
-        nAnswerThird = nAnswerFourth;
-        ivFourth.setImageDrawable(ivFifth.getDrawable());
-        nAnswerFourth = nAnswerFifth;
-        ivFifth.setImageDrawable(ivSixth.getDrawable());
-        nAnswerFifth = nAnswerSixth;
-        ivSixth.setImageDrawable(ivSeventh.getDrawable());
-        nAnswerSixth = nAnswerSeventh;
-        ivSeventh.setImageDrawable(ivLast.getDrawable());
-        nAnswerSeventh = nAnswerLast;
+        iv[0].setImageDrawable(iv[1].getDrawable());
+        nAnswer[0] = nAnswer[1];
+        iv[1].setImageDrawable(iv[2].getDrawable());
+        nAnswer[1] = nAnswer[2];
+        iv[2].setImageDrawable(iv[3].getDrawable());
+        nAnswer[2] = nAnswer[3];
+        iv[3].setImageDrawable(iv[4].getDrawable());
+        nAnswer[3] = nAnswer[4];
+        iv[4].setImageDrawable(iv[5].getDrawable());
+        nAnswer[4] = nAnswer[5];
+        iv[5].setImageDrawable(iv[6].getDrawable());
+        nAnswer[5] = nAnswer[6];
+        iv[6].setImageDrawable(iv[7].getDrawable());
+        nAnswer[6] = nAnswer[7];
         int temp = rand.nextInt(2);
-        nAnswerLast = temp;
-        set(ivLast,temp);
+        nAnswer[7] = temp;
+        set(iv[7],temp);
 
 
     }
@@ -109,31 +112,29 @@ public class MainActivity extends ActionBarActivity {
 
     public void shuffle(){
         int temp = rand.nextInt(2);
-        set(ivFront,temp);
-        nAnswerFront = temp;
+        set(iv[0],temp);
+        nAnswer[0] = temp;
         temp = rand.nextInt(2);
-        set(ivSecond,temp);
-        nAnswerSecond = temp;
+        set(iv[1],temp);
+        nAnswer[1] = temp;
         temp = rand.nextInt(2);
-        set(ivThird,temp);
-        nAnswerThird = temp;
+        set(iv[2],temp);
+        nAnswer[2] = temp;
         temp = rand.nextInt(2);
-        set(ivFourth,temp);
-        nAnswerFourth = temp;
+        set(iv[3],temp);
+        nAnswer[3] = temp;
         temp = rand.nextInt(2);
-        set(ivFifth,temp);
-        nAnswerFifth = temp;
+        set(iv[4],temp);
+        nAnswer[4] = temp;
         temp = rand.nextInt(2);
-        set(ivSixth,temp);
-        nAnswerSixth = temp;
+        set(iv[5],temp);
+        nAnswer[5] = temp;
         temp = rand.nextInt(2);
-        set(ivSeventh,temp);
-        nAnswerSeventh = temp;
+        set(iv[6],temp);
+        nAnswer[6] = temp;
         temp = rand.nextInt(2);
-        set(ivLast,temp);
-        nAnswerLast = temp;
-
-
+        set(iv[7],temp);
+        nAnswer[7] = temp;
     }
 
     // 앱이 처음 시작할 때 실행되는 부분
@@ -142,20 +143,20 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-       Typeface custom_font = Typeface.createFromAsset(getAssets(),  "fonts/fun.ttf");
+        custom_font = Typeface.createFromAsset(getAssets(),  "fonts/fun.ttf");
 
         White = getResources().getColor(R.color.color_white);
         Yellow = getResources().getColor(R.color.color_yellow);
         Red = getResources().getColor(R.color.color_red);
 
-        ivFront = (ImageView)findViewById(R.id.ivFront);
-        ivSecond = (ImageView)findViewById(R.id.ivSecond);
-        ivThird = (ImageView)findViewById(R.id.ivThird);
-        ivFourth = (ImageView)findViewById(R.id.ivFourth);
-        ivFifth = (ImageView)findViewById(R.id.ivFifth);
-        ivSixth = (ImageView)findViewById(R.id.ivSixth);
-        ivSeventh = (ImageView)findViewById(R.id.ivSeventh);
-        ivLast = (ImageView)findViewById(R.id.ivLast);
+        iv[0] = (ImageView)findViewById(R.id.ivFront);
+        iv[1] = (ImageView)findViewById(R.id.ivSecond);
+        iv[2] = (ImageView)findViewById(R.id.ivThird);
+        iv[3] = (ImageView)findViewById(R.id.ivFourth);
+        iv[4] = (ImageView)findViewById(R.id.ivFifth);
+        iv[5] = (ImageView)findViewById(R.id.ivSixth);
+        iv[6] = (ImageView)findViewById(R.id.ivSeventh);
+        iv[7] = (ImageView)findViewById(R.id.ivLast);
         btStart = (ImageView)findViewById(R.id.ivStart);
         btStart.setOnClickListener(new onStart());
         btRight = (ImageView)findViewById(R.id.ivRight);
@@ -194,7 +195,7 @@ public class MainActivity extends ActionBarActivity {
             if(isRunning){ // 게임중인지 게임중이 아닌지 검사
 
                 int randomNum = rand.nextInt(2);
-                if (nAnswerFront == 1){
+                if (nAnswer[0] == 1){
                     scoreChange(true);
                     tvResult.setText(String.valueOf(nScore));
                     pushImage();
@@ -207,8 +208,8 @@ public class MainActivity extends ActionBarActivity {
             }
             else {
 
-                Toast.makeText(getApplicationContext(),"Press Go!",Toast.LENGTH_SHORT).show();
-               //tvResult.setText("새 게임을 누르세요");
+                Toast toast = Toast.makeText(getApplicationContext(), "Press Go!", Toast.LENGTH_SHORT);
+                toast.show();
 
             }
 
@@ -220,22 +221,23 @@ public class MainActivity extends ActionBarActivity {
 
             if(isRunning){
                 int randomNum = rand.nextInt(2);
-                if (nAnswerFront == 0){
+                if (nAnswer[0] == 0){
                     scoreChange(true);
                     tvResult.setText(String.valueOf(nScore));
+                    v.playSoundEffect(SoundEffectConstants.CLICK);
                     pushImage();
                 }
                 else {
                     scoreChange(false);
                     tvResult.setText(String.valueOf(nScore));
+                    v.playSoundEffect(SoundEffectConstants.CLICK);
                     pushImage();
                 }
             }
             else {
 
-                Toast.makeText(getApplicationContext(),"Press Go!", Toast.LENGTH_SHORT).show();
-
-                //tvResult.setText("새 게임을 누르세요");
+                Toast toast = Toast.makeText(getApplicationContext(), "Press Go!", Toast.LENGTH_SHORT);
+                toast.show();
 
             }
 
